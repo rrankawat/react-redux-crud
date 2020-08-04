@@ -9,7 +9,9 @@ const UserItem = ({ user }) => {
     <Fragment>
       <div className="card my-2">
         <div className="card-body d-flex justify-content-between">
-          <div className="mt-1">{user.name}</div>
+          <div className="mt-1">
+            {user.firstName} {user.lastName}
+          </div>
           <div>
             <button
               className="btn btn-secondary btn-sm"

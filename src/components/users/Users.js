@@ -1,25 +1,21 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
+import axios from 'axios';
 import UserItem from './UserItem';
 import AddUser from './AddUser';
 
 const Users = () => {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: 'John Doe',
-    },
-    {
-      id: 2,
-      name: 'Steve Jobs',
-    },
-    {
-      id: 3,
-      name: 'Larry Wattson',
-    },
-  ]);
+  const [users, setUsers] = useState([]);
 
   const [addUserModal, setAddUserModal] = useState(false);
   const toggleAddUserModal = () => setAddUserModal(!addUserModal);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const res = await axios.get(`/users`);
+      setUsers(res.data);
+    };
+    getUsers();
+  }, []);
 
   return (
     <Fragment>
