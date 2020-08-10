@@ -4,6 +4,16 @@
       "id": 1,
       "firstName": "John",
       "lastName": "Doe"
+    },
+    {
+      "firstName": "Harry",
+      "lastName": "Potter",
+      "id": 2
+    },
+    {
+      "firstName": "Devi",
+      "lastName": "Johns",
+      "id": 3
     }
   ]
 }

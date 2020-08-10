@@ -1,20 +1,18 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getUsers } from '../../actions/userActions';
+
 import UserItem from './UserItem';
 import AddUser from './AddUser';
 
-const Users = () => {
-  const [users, setUsers] = useState([]);
-
+const Users = ({ users, getUsers }) => {
   const [addUserModal, setAddUserModal] = useState(false);
   const toggleAddUserModal = () => setAddUserModal(!addUserModal);
 
   useEffect(() => {
-    const getUsers = async () => {
-      const res = await axios.get(`/users`);
-      setUsers(res.data);
-    };
     getUsers();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -33,4 +31,13 @@ const Users = () => {
   );
 };
 
-export default Users;
+Users.propTypes = {
+  users: PropTypes.array,
+  getUsers: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  users: state.user.users,
+});
+
+export default connect(mapStateToProps, { getUsers })(Users);

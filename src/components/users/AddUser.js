@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Modal } from 'reactstrap';
+import { connect } from 'react-redux';
+import { addUser } from '../../actions/userActions';
 
-const AddUser = ({ modal, toggle }) => {
-  const history = useHistory();
+const AddUser = ({ modal, toggle, addUser }) => {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -12,7 +13,8 @@ const AddUser = ({ modal, toggle }) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    history.push('/users');
+    addUser(user);
+    toggle();
   };
 
   return (
@@ -53,4 +55,8 @@ const AddUser = ({ modal, toggle }) => {
   );
 };
 
-export default AddUser;
+AddUser.propTypes = {
+  addUser: PropTypes.func.isRequired,
+};
+
+export default connect(null, { addUser })(AddUser);
