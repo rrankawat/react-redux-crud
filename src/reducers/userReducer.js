@@ -1,4 +1,9 @@
-import { GET_USERS, USERS_ERROR, ADD_USER } from '../actions/types';
+import {
+  GET_USERS,
+  USERS_ERROR,
+  ADD_USER,
+  DELETE_USER,
+} from '../actions/types';
 
 const initialState = {
   users: null,
@@ -18,6 +23,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         users: [...state.users, payload],
+      };
+    case DELETE_USER:
+      return {
+        ...state,
+        users: state.users.filter((user) => user.id !== payload),
       };
     case USERS_ERROR:
       return {

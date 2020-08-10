@@ -1,9 +1,16 @@
 import React, { useState, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import EditUser from './EditUser';
+import { connect } from 'react-redux';
+import { deleteUser } from '../../actions/userActions';
 
-const UserItem = ({ user }) => {
+const UserItem = ({ user, deleteUser }) => {
   const [editUserModal, setEditUserModal] = useState(false);
   const toggleEditUserModal = () => setEditUserModal(!editUserModal);
+
+  const onDelete = () => {
+    deleteUser(user.id);
+  };
 
   return (
     <Fragment>
@@ -13,13 +20,10 @@ const UserItem = ({ user }) => {
             {user.firstName} {user.lastName}
           </div>
           <div>
-            <button
-              className="btn btn-secondary btn-sm"
-              onClick={toggleEditUserModal}
-            >
-              Edit
+            <button className="btn btn-secondary btn-sm">Edit</button>
+            <button className="btn btn-danger btn-sm ml-2" onClick={onDelete}>
+              Delete
             </button>
-            <button className="btn btn-danger btn-sm ml-2">Delete</button>
           </div>
         </div>
       </div>
@@ -29,4 +33,8 @@ const UserItem = ({ user }) => {
   );
 };
 
-export default UserItem;
+UserItem.propTypes = {
+  deleteUser: PropTypes.func.isRequired,
+};
+
+export default connect(null, { deleteUser })(UserItem);
